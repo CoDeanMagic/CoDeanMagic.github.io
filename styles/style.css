@@ -1,8 +1,10 @@
 .banner {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  background-color: orange;
+  font-size: 16px;
+  line-height: 40px;
+  position: relative;
 }
 
 #x-input {
@@ -10,7 +12,10 @@
 }
 
 .x-btn {
-  align-self: flex-end;
+  display: block;
+  position: absolute;
+  top: 16px;
+  right: 15px;
 }
 
 .x-btn span {
@@ -23,9 +28,13 @@
 }
 
 .x-btn span:nth-child(1) {
-  transform: rotate(45deg) translate(-17px, 10px);
+  transform: rotate(45deg) translate(2px, 5px);
 }
 
 .x-btn span:nth-child(2) {
-  transform: rotate(-45deg) translate(-6px, -21px);
+  transform: rotate(-45deg) translate(-1px, -1px);
+}
+
+#x-input:checked + .banner {
+  display: none;
 }
