@@ -1,0 +1,31 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#x-input {
+  display: none;
+}
+
+.x-btn {
+  align-self: flex-end;
+}
+
+.x-btn span {
+  display: block;
+  width: 20px;
+  height: 5px;
+  background-color: #000;
+  border-radius: 5px;
+  transition: all 1s;
+}
+
+.x-btn span:nth-child(1) {
+  transform: rotate(45deg) translate(-17px, 10px);
+}
+
+.x-btn span:nth-child(2) {
+  transform: rotate(-45deg) translate(-6px, -21px);
+}
