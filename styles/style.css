@@ -96,7 +96,7 @@ nav .free {
   margin-bottom: 80px;
 }
 
-.content {
+.info-content {
   width: 500px;
   height: 400px;
 }
@@ -111,20 +111,20 @@ nav .free {
   height: 100%;
 }
 
-.content h2 {
+.info-content h2 {
   font-size: 25px;
   margin-bottom: 24px;
   line-height: 50px;
 }
 
-.content .desc {
+.info-content .desc {
   font-size: 20px;
   margin-bottom: 24px;
   text-align: justify;
   line-height: 30px;
 }
 
-.content a {
+.info-content a {
   display: block;
   width: 200px;
   height: 45px;
@@ -136,8 +136,84 @@ nav .free {
   margin-top: 10px;
 }
 
-.content .hint {
+.info-content .hint {
   display: inline-block;
   padding-top: 10px;
   color: #666;
+}
+
+.card-list {
+  padding: 64px 250px;
+}
+
+.card {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.card-content {
+  width: 46%;
+}
+
+.card img {
+  width: 46%;
+  aspect-ratio: 1/1;
+  margin-right: 10px;
+}
+
+.card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.card:nth-child(even) img {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.card .card-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-content h3 {
+  font-size: 175%;
+  margin-bottom: 24px;
+}
+
+.card-content p {
+  flex: 1;
+  font-size: 105%;
+  margin-bottom: 24px;
+}
+
+.card-content ul {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  line-height: 12px;
+}
+
+.card-content ul li::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #0061ff;
+  position: absolute;
+  left: 0;
+  top: 11px;
+}
+
+.card-content a span {
+  text-decoration: underline;
+}
+
+.card-content i::before {
+  content: "→";
+  /* text-decoration: none; */
 }
