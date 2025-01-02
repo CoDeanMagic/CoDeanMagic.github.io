@@ -18,19 +18,21 @@
       .container {
         max-width: 400px;
         padding: 20px;
-        margin-top: 50px;
+        margin-top: 10px;
       }
 
       .display {
+        display: block;
         background: #000;
         border: 2px solid #00ff00;
         color: #00ff00;
         padding: 10px;
         margin: 10px 0;
         text-align: center;
-        font-size: 24px;
+        font-size: 16px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        min-height: 48px;
       }
 
       .btn-grid {
@@ -44,8 +46,8 @@
         background: #000;
         border: 2px solid #00ff00;
         color: #00ff00;
-        font-size: 20px;
-        padding: 15px;
+        font-size: 16px;
+        padding: 10px;
         transition: all 0.3s ease;
       }
 
@@ -77,30 +79,118 @@
     <div class="container">
       <h2 class="title">1-100 終極密碼</h2>
 
-      <div class="display">1-100</div>
-      <div class="display">20</div>
+      <div class="display result">1-100</div>
+      <div class="display output">請按下Game Start開始遊戲</div>
 
       <div class="btn-grid">
-        <button class="btn btn-custom">7</button>
-        <button class="btn btn-custom">8</button>
-        <button class="btn btn-custom">9</button>
-        <button class="btn btn-custom">4</button>
-        <button class="btn btn-custom">5</button>
-        <button class="btn btn-custom">6</button>
-        <button class="btn btn-custom">1</button>
-        <button class="btn btn-custom">2</button>
-        <button class="btn btn-custom">3</button>
+        <button class="btn btn-custom btn-num" data-val="7" disabled="true">
+          柒
+        </button>
+        <button class="btn btn-custom btn-num" data-val="8" disabled="true">
+          捌
+        </button>
+        <button class="btn btn-custom btn-num" data-val="9" disabled="true">
+          玖
+        </button>
+        <button class="btn btn-custom btn-num" data-val="4" disabled="true">
+          肆
+        </button>
+        <button class="btn btn-custom btn-num" data-val="5" disabled="true">
+          伍
+        </button>
+        <button class="btn btn-custom btn-num" data-val="6" disabled="true">
+          陸
+        </button>
+        <button class="btn btn-custom btn-num" data-val="1" disabled="true">
+          壹
+        </button>
+        <button class="btn btn-custom btn-num" data-val="2" disabled="true">
+          貳
+        </button>
+        <button class="btn btn-custom btn-num" data-val="3" disabled="true">
+          參
+        </button>
+        <button class="btn btn-custom btn-num btn-clear" disabled="true">
+          Clear
+        </button>
+        <button class="btn btn-custom btn-num" data-val="0" disabled="true">
+          零
+        </button>
+        <button class="btn btn-custom btn-num" disabled="true">Guess</button>
       </div>
 
-      <div class="footer-buttons">
-        <button class="btn btn-custom btn-action">清除</button>
-        <button class="btn btn-custom btn-action">0</button>
-        <button class="btn btn-custom btn-action">猜</button>
-      </div>
-
-      <button class="btn btn-custom btn-action mt-3">Game start</button>
+      <button class="btn btn-custom btn-action mt-3 btn-start">
+        Game Start
+      </button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const gameStart = document.querySelector(".btn-start");
+      let gameStarted = false;
+
+      gameStart.addEventListener("click", function () {
+        gameStarted = !gameStarted; // 切換遊戲狀態
+        const buttons = document.querySelectorAll(
+          ".btn-custom:not(.btn-start)"
+        );
+
+        buttons.forEach((button) => {
+          if (gameStarted) {
+            button.removeAttribute("disabled");
+            document.querySelector(".output").textContent = "";
+          } else {
+            button.setAttribute("disabled", "true");
+            document.querySelector(".output").textContent =
+              "請按下Game Start開始遊戲";
+          }
+        });
+
+        // 更新開始按鈕文字
+        this.textContent = gameStarted ? "Game Reset" : "Game Start";
+      });
+
+      const container = document.querySelector(".btn-grid");
+      container.addEventListener("click", function (e) {
+        const val = e.target.dataset.val;
+        // console.log(`data-val:${val}`);
+
+        // let ans = document.querySelector(".output").textContent;
+        // console.log(ans);
+
+        // if ((val != null) & (ans <= 100)) {
+        //   document.querySelector(".output").textContent += val;
+        //   ans = document.querySelector(".output").textContent;
+        // }
+
+        let output = document.querySelector(".output");
+        let currentNum = parseInt(output.textContent) || 0; // 轉換為數字
+        console.log(currentNum);
+        // 檢查是否為數字按鈕且結果不會超過100
+        if (val != null) {
+          if (output.textContent === "" && val === "0") {
+            return;
+          }
+
+          let newNum = parseInt(output.textContent + val);
+          if (newNum <= 100) {
+            output.textContent += val;
+          }
+          console.log(currentNum);
+        }
+      });
+
+      // const clearBtn = document.querySelector(".btn-clear");
+      // clearBtn.addEventListener("click", function () {
+      //   let tempOutput = document.querySelector(".output").textContent;
+      //   tempOutput = "";
+      // });
+
+      document.querySelector(".btn-clear").addEventListener("click", () => {
+        let output = document.querySelector(".output");
+        // 取得除了最後一個字符以外的所有字符
+        output.textContent = output.textContent.slice(0, -1);
+      });
+    </script>
   </body>
 </html>
