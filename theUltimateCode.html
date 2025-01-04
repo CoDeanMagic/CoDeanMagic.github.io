@@ -73,50 +73,107 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
       }
+
+      /* 可以加入以下 CSS 來強化科技風格 */
+      .modal-content {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+      }
+
+      .modal-body {
+        text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+      }
+
+      .modal .btn-custom:hover {
+        background: #00ff00;
+        color: #000;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h2 class="title">1-100 終極密碼</h2>
 
-      <div class="display result">1-100</div>
+      <div class="display result">答案介於1至100之間</div>
       <div class="display output">請按下Game Start開始遊戲</div>
 
       <div class="btn-grid">
-        <button class="btn btn-custom btn-num" data-val="7" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="7"
+          disabled="true"
+        >
           柒
         </button>
-        <button class="btn btn-custom btn-num" data-val="8" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="8"
+          disabled="true"
+        >
           捌
         </button>
-        <button class="btn btn-custom btn-num" data-val="9" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="9"
+          disabled="true"
+        >
           玖
         </button>
-        <button class="btn btn-custom btn-num" data-val="4" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="4"
+          disabled="true"
+        >
           肆
         </button>
-        <button class="btn btn-custom btn-num" data-val="5" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="5"
+          disabled="true"
+        >
           伍
         </button>
-        <button class="btn btn-custom btn-num" data-val="6" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="6"
+          disabled="true"
+        >
           陸
         </button>
-        <button class="btn btn-custom btn-num" data-val="1" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="1"
+          disabled="true"
+        >
           壹
         </button>
-        <button class="btn btn-custom btn-num" data-val="2" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="2"
+          disabled="true"
+        >
           貳
         </button>
-        <button class="btn btn-custom btn-num" data-val="3" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="3"
+          disabled="true"
+        >
           參
         </button>
         <button class="btn btn-custom btn-num btn-clear" disabled="true">
-          Clear
+          <i class="fas fa-backspace"></i> Clear
         </button>
-        <button class="btn btn-custom btn-num" data-val="0" disabled="true">
+        <button
+          class="btn btn-custom btn-num btn-number"
+          data-val="0"
+          disabled="true"
+        >
           零
         </button>
-        <button class="btn btn-custom btn-num" disabled="true">Guess</button>
+        <button class="btn btn-custom btn-num btn-guess" disabled="true">
+          <i class="fas fa-check"></i> Guess
+        </button>
       </div>
 
       <button class="btn btn-custom btn-action mt-3 btn-start">
@@ -124,16 +181,74 @@
       </button>
     </div>
 
+    <!-- 勝利訊息 Modal -->
+    <div
+      class="modal fade"
+      id="winModal"
+      tabindex="-1"
+      aria-labelledby="winModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div
+          class="modal-content"
+          style="background: #1a1a1a; border: 2px solid #00ff00"
+        >
+          <div class="modal-header border-bottom border-success">
+            <h5 class="modal-title" id="winModalLabel" style="color: #00ff00">
+              🎉 恭喜過關！
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center" style="color: #00ff00">
+            <p id="winMessage" class="fs-4"></p>
+          </div>
+          <!-- <div class="modal-footer border-top border-success">
+            <button
+              type="button"
+              class="btn btn-custom"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script>
+      const myModal = document.getElementById("myModal");
+      const myInput = document.getElementById("myInput");
+
       const gameStart = document.querySelector(".btn-start");
       let gameStarted = false;
+      let numberMin = 0;
+      let numberMax = 100;
+
+      let x;
+      let answer;
+
+      function random_number() {
+        return Math.random();
+      }
 
       gameStart.addEventListener("click", function () {
         gameStarted = !gameStarted; // 切換遊戲狀態
         const buttons = document.querySelectorAll(
           ".btn-custom:not(.btn-start)"
         );
+        if (gameStarted) {
+          x = 100 * random_number();
+          answer = Number(x.toFixed(0));
+          console.log(`終極密碼的值是${answer}`);
+        }
 
         buttons.forEach((button) => {
           if (gameStarted) {
@@ -150,24 +265,50 @@
         this.textContent = gameStarted ? "Game Reset" : "Game Start";
       });
 
+      // const container = document.querySelector(".btn-grid");
+      // container.addEventListener("click", function (e) {
+      //   const val = e.target.dataset.val;
+      //   // console.log(`data-val:${val}`);
+
+      //   // let ans = document.querySelector(".output").textContent;
+      //   // console.log(ans);
+
+      //   // if ((val != null) & (ans <= 100)) {
+      //   //   document.querySelector(".output").textContent += val;
+      //   //   ans = document.querySelector(".output").textContent;
+      //   // }
+
+      //   let output = document.querySelector(".output");
+      //   let currentNum = parseInt(output.textContent) || 0; // 轉換為數字
+      //   console.log(currentNum);
+      //   // 檢查是否為數字按鈕且結果不會超過100
+      //   if (val != null) {
+      //     if (output.textContent === "" && val === "0") {
+      //       return;
+      //     }
+
+      //     let newNum = parseInt(output.textContent + val);
+      //     if (newNum <= 100) {
+      //       output.textContent += val;
+      //     }
+      //     console.log(currentNum);
+      //   }
+      // });
+
+      // const clearBtn = document.querySelector(".btn-clear");
+      // clearBtn.addEventListener("click", function () {
+      //   let tempOutput = document.querySelector(".output").textContent;
+      //   tempOutput = "";
+      // });
+
       const container = document.querySelector(".btn-grid");
       container.addEventListener("click", function (e) {
-        const val = e.target.dataset.val;
-        // console.log(`data-val:${val}`);
+        // 只有當點擊的元素有 btn-number 類別時才執行
+        if (e.target.classList.contains("btn-number")) {
+          const val = e.target.dataset.val;
+          let output = document.querySelector(".output");
+          let currentNum = parseInt(output.textContent) || 0;
 
-        // let ans = document.querySelector(".output").textContent;
-        // console.log(ans);
-
-        // if ((val != null) & (ans <= 100)) {
-        //   document.querySelector(".output").textContent += val;
-        //   ans = document.querySelector(".output").textContent;
-        // }
-
-        let output = document.querySelector(".output");
-        let currentNum = parseInt(output.textContent) || 0; // 轉換為數字
-        console.log(currentNum);
-        // 檢查是否為數字按鈕且結果不會超過100
-        if (val != null) {
           if (output.textContent === "" && val === "0") {
             return;
           }
@@ -176,20 +317,61 @@
           if (newNum <= 100) {
             output.textContent += val;
           }
+          // output.textContent += val;
           console.log(currentNum);
         }
       });
-
-      // const clearBtn = document.querySelector(".btn-clear");
-      // clearBtn.addEventListener("click", function () {
-      //   let tempOutput = document.querySelector(".output").textContent;
-      //   tempOutput = "";
-      // });
 
       document.querySelector(".btn-clear").addEventListener("click", () => {
         let output = document.querySelector(".output");
         // 取得除了最後一個字符以外的所有字符
         output.textContent = output.textContent.slice(0, -1);
+      });
+
+      const guessBtn = document.querySelector(".btn-guess");
+      const winModal = new bootstrap.Modal(document.getElementById("winModal"));
+      guessBtn.addEventListener("click", function () {
+        let userGuess = parseInt(document.querySelector(".output").textContent);
+        console.log(userGuess);
+
+        if (userGuess <= numberMin || userGuess >= numberMax) {
+          document.querySelector(
+            ".result"
+          ).textContent = `無效猜測，請重新輸入一個介於${numberMin}~${numberMax}的數字`;
+          return;
+        }
+
+        if (userGuess == answer) {
+          // 更新 Modal 中的訊息
+          document.getElementById(
+            "winMessage"
+          ).textContent = `恭喜你猜對啦！終極密碼就是 ${userGuess}`;
+          // 顯示 Modal
+          winModal.show();
+          // 重置遊戲狀態
+          gameStarted = false;
+          document.querySelector(".output").textContent =
+            "請按下Game Start開始新遊戲";
+          // 禁用所有按鈕
+          const buttons = document.querySelectorAll(
+            ".btn-custom:not(.btn-start)"
+          );
+          buttons.forEach((button) => {
+            button.setAttribute("disabled", "true");
+          });
+          // 重置開始按鈕文字
+          document.querySelector(".btn-start").textContent = "Game Start";
+        } else if (userGuess > answer) {
+          numberMax = userGuess;
+          document.querySelector(
+            ".result"
+          ).innerHTML = `猜的數字太高了，試著稍微降低吧!<br>答案介於${numberMin}至${numberMax}之間`;
+        } else if (userGuess < answer) {
+          numberMin = userGuess;
+          document.querySelector(
+            ".result"
+          ).innerHTML = `猜的數字太低了，試著稍微提高吧!<br>答案介於${numberMin}至${numberMax}之間`;
+        }
       });
     </script>
   </body>
