@@ -350,6 +350,7 @@
           winModal.show();
           // 重置遊戲狀態
           gameStarted = false;
+          // 重置output輸出框文字
           document.querySelector(".output").textContent =
             "請按下Game Start開始新遊戲";
           // 禁用所有按鈕
@@ -361,6 +362,8 @@
           });
           // 重置開始按鈕文字
           document.querySelector(".btn-start").textContent = "Game Start";
+          // 重置result輸出框文字
+          document.querySelector(".result").textContent = "答案介於1至100之間";
         } else if (userGuess > answer) {
           numberMax = userGuess;
           document.querySelector(
