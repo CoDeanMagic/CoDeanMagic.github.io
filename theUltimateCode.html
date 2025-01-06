@@ -13,6 +13,8 @@
         background: #1a1a1a;
         color: #00ff00;
         font-family: "Courier New", monospace;
+        /* 只允許滾動和縮放手勢操作，禁止雙擊縮放。 */
+        touch-action: manipulation;
       }
 
       .container {
@@ -234,6 +236,8 @@
 
       let x;
       let answer;
+      let isGuessed = false;
+      console.log(`isGuessed的值為${isGuessed}`);
 
       function random_number() {
         return Math.random();
@@ -314,10 +318,13 @@
           }
 
           let newNum = parseInt(output.textContent + val);
-          if (newNum <= 100) {
+          if (isGuessed) {
+            document.querySelector(".output").textContent = "";
+            isGuessed = !isGuessed;
+            output.textContent += val;
+          } else if (newNum <= 100) {
             output.textContent += val;
           }
-          // output.textContent += val;
           console.log(currentNum);
         }
       });
@@ -332,12 +339,15 @@
       const winModal = new bootstrap.Modal(document.getElementById("winModal"));
       guessBtn.addEventListener("click", function () {
         let userGuess = parseInt(document.querySelector(".output").textContent);
+
         console.log(userGuess);
 
         if (userGuess <= numberMin || userGuess >= numberMax) {
           document.querySelector(
             ".result"
           ).textContent = `無效猜測，請重新輸入一個介於${numberMin}~${numberMax}的數字`;
+          isGuessed = !isGuessed;
+          console.log(isGuessed);
           return;
         }
 
@@ -369,11 +379,15 @@
           document.querySelector(
             ".result"
           ).innerHTML = `猜的數字太高了，試著稍微降低吧!<br>答案介於${numberMin}至${numberMax}之間`;
+          isGuessed = !isGuessed;
+          console.log(isGuessed);
         } else if (userGuess < answer) {
           numberMin = userGuess;
           document.querySelector(
             ".result"
           ).innerHTML = `猜的數字太低了，試著稍微提高吧!<br>答案介於${numberMin}至${numberMax}之間`;
+          isGuessed = !isGuessed;
+          console.log(isGuessed);
         }
       });
     </script>
