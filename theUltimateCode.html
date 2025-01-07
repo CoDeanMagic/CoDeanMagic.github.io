@@ -277,7 +277,6 @@
           if (output.textContent === "" && val === "0") {
             return;
           }
-
           // let newNum = parseInt(output.textContent + val);
           if (isGuessed) {
             document.querySelector(".output").textContent = "";
@@ -285,6 +284,7 @@
             isGuessed = false;
             console.log(`isGuessed的值為${isGuessed}`);
           }
+          //上面這樣判斷更單純是在判斷，按下猜的按鈕後，要做的事情其實只要清空.output輸出框
           let newNum = parseInt(output.textContent + val);
           console.log(`newNum的值為${newNum}`);
           if (newNum <= 100) {
