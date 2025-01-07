@@ -96,7 +96,7 @@
     <div class="container">
       <h2 class="title">1-100 終極密碼</h2>
 
-      <div class="display result">答案介於1至100之間</div>
+      <div class="display result">答案範圍為 1 ~ 100</div>
       <div class="display output">請按下Game Start開始遊戲</div>
 
       <div class="btn-grid">
@@ -226,9 +226,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script>
-      const myModal = document.getElementById("myModal");
-      const myInput = document.getElementById("myInput");
-
       const gameStart = document.querySelector(".btn-start");
       let gameStarted = false;
       let numberMin = 0;
@@ -269,42 +266,6 @@
         this.textContent = gameStarted ? "Game Reset" : "Game Start";
       });
 
-      // const container = document.querySelector(".btn-grid");
-      // container.addEventListener("click", function (e) {
-      //   const val = e.target.dataset.val;
-      //   // console.log(`data-val:${val}`);
-
-      //   // let ans = document.querySelector(".output").textContent;
-      //   // console.log(ans);
-
-      //   // if ((val != null) & (ans <= 100)) {
-      //   //   document.querySelector(".output").textContent += val;
-      //   //   ans = document.querySelector(".output").textContent;
-      //   // }
-
-      //   let output = document.querySelector(".output");
-      //   let currentNum = parseInt(output.textContent) || 0; // 轉換為數字
-      //   console.log(currentNum);
-      //   // 檢查是否為數字按鈕且結果不會超過100
-      //   if (val != null) {
-      //     if (output.textContent === "" && val === "0") {
-      //       return;
-      //     }
-
-      //     let newNum = parseInt(output.textContent + val);
-      //     if (newNum <= 100) {
-      //       output.textContent += val;
-      //     }
-      //     console.log(currentNum);
-      //   }
-      // });
-
-      // const clearBtn = document.querySelector(".btn-clear");
-      // clearBtn.addEventListener("click", function () {
-      //   let tempOutput = document.querySelector(".output").textContent;
-      //   tempOutput = "";
-      // });
-
       const container = document.querySelector(".btn-grid");
       container.addEventListener("click", function (e) {
         // 只有當點擊的元素有 btn-number 類別時才執行
@@ -317,12 +278,16 @@
             return;
           }
 
-          let newNum = parseInt(output.textContent + val);
+          // let newNum = parseInt(output.textContent + val);
           if (isGuessed) {
             document.querySelector(".output").textContent = "";
-            isGuessed = !isGuessed;
-            output.textContent += val;
-          } else if (newNum <= 100) {
+            // output.textContent += val;
+            isGuessed = false;
+            console.log(`isGuessed的值為${isGuessed}`);
+          }
+          let newNum = parseInt(output.textContent + val);
+          console.log(`newNum的值為${newNum}`);
+          if (newNum <= 100) {
             output.textContent += val;
           }
           console.log(currentNum);
@@ -340,14 +305,14 @@
       guessBtn.addEventListener("click", function () {
         let userGuess = parseInt(document.querySelector(".output").textContent);
 
-        console.log(userGuess);
+        console.log(`使用者猜測的值為${userGuess}`);
 
         if (userGuess <= numberMin || userGuess >= numberMax) {
           document.querySelector(
             ".result"
           ).textContent = `無效猜測，請重新輸入一個介於${numberMin}~${numberMax}的數字`;
-          isGuessed = !isGuessed;
-          console.log(isGuessed);
+          isGuessed = true;
+          console.log(`isGuessed的值為${isGuessed}`);
           return;
         }
 
@@ -379,15 +344,15 @@
           document.querySelector(
             ".result"
           ).innerHTML = `猜的數字太高了，試著稍微降低吧!<br>答案介於${numberMin}至${numberMax}之間`;
-          isGuessed = !isGuessed;
-          console.log(isGuessed);
+          isGuessed = true;
+          console.log(`isGuessed的值為${isGuessed}`);
         } else if (userGuess < answer) {
           numberMin = userGuess;
           document.querySelector(
             ".result"
           ).innerHTML = `猜的數字太低了，試著稍微提高吧!<br>答案介於${numberMin}至${numberMax}之間`;
-          isGuessed = !isGuessed;
-          console.log(isGuessed);
+          isGuessed = true;
+          console.log(`isGuessed的值為${isGuessed}`);
         }
       });
     </script>
