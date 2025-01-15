@@ -1,6 +1,8 @@
 // 遊戲狀態管理
+/// !!! answer可用const宣告，但更新answer的方式要調整，避免後面被更改
 let answer = []; // 儲存遊戲的答案數字
 let isGameStarted = false; // 追蹤遊戲是否已開始
+/// !!! guessHistory可用const宣告，用array移除，避免後面被更改
 let guessHistory = []; // 儲存猜測歷史記錄
 
 // DOM 元素
@@ -48,6 +50,7 @@ function validateInput(input) {
 }
 
 // 計算 AB 數量
+可以用一個for迴圈解決;
 function calculateAB(guess) {
   const guessDigits = guess.split("").map(Number); // 將猜測轉為數字陣列
   let A = 0; // 位置和數字都對的計數
@@ -89,6 +92,7 @@ function addGuessToHistory(guess, result) {
 
 // 遊戲開始
 startBtn.addEventListener("click", () => {
+  // !!!產生新的答案，把邏輯寫出去，讓程式碼看起來更簡潔
   answer = generateAnswer(); // 產生新的答案
   isGameStarted = true; // 設置遊戲狀態為已開始
   guessHistory = []; // 清空猜測歷史記錄陣列
@@ -139,6 +143,7 @@ guessBtn.addEventListener("click", () => {
 
   if (result.A === 4) {
     // 如果 A = 4，表示完全猜對
+    //!!!猜對加上不同的顯示內容，例如猜對時顯示綠色，其他時候顯示紅色
     showHint("恭喜你猜對了！"); // 顯示祝賀訊息
     isGameStarted = false; // 結束遊戲
     guessInput.disabled = true; // 禁用輸入框
@@ -148,6 +153,7 @@ guessBtn.addEventListener("click", () => {
   guessInput.value = ""; // 清空輸入框，準備下一次猜測
 });
 
+//!!!window load 資源載入完成後，或是DOM載入完成後 要觸發的事件
 // 初始化：禁用輸入和猜測按鈕
 guessInput.disabled = true;
 guessBtn.disabled = true;
