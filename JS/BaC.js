@@ -49,18 +49,18 @@ function validateInput(input) {
 
 // 計算 AB 數量
 function calculateAB(guess) {
-  const guessDigits = guess.split("").map(Number);
-  let A = 0;
-  let B = 0;
+  const guessDigits = guess.split("").map(Number); // 將猜測轉為數字陣列
+  let A = 0; // 位置和數字都對的計數
+  let B = 0; // 只有數字對的計數
 
-  // 計算 A
+  // 計算 A（位置和數字都對）
   for (let i = 0; i < 4; i++) {
     if (guessDigits[i] === answer[i]) {
       A++;
     }
   }
 
-  // 計算 B
+  // 計算 B（數字對但位置不對）
   for (let i = 0; i < 4; i++) {
     if (answer.includes(guessDigits[i]) && guessDigits[i] !== answer[i]) {
       B++;
@@ -89,25 +89,27 @@ function addGuessToHistory(guess, result) {
 
 // 遊戲開始
 startBtn.addEventListener("click", () => {
-  answer = generateAnswer();
-  isGameStarted = true;
-  guessHistory = [];
-  resultBox.innerHTML = "";
-  guessInput.value = "";
-  guessInput.disabled = false;
-  guessBtn.disabled = false;
-  console.log("Answer:", answer.join("")); // 開發時用，實際上線要移除
+  answer = generateAnswer(); // 產生新的答案
+  isGameStarted = true; // 設置遊戲狀態為已開始
+  guessHistory = []; // 清空猜測歷史記錄陣列
+  resultBox.innerHTML = ""; // 清空結果顯示區域的內容
+  guessInput.value = ""; // 清空輸入框的值
+  guessInput.disabled = false; // 啟用輸入框
+  guessBtn.disabled = false; // 啟用猜測按鈕
+
+  // console.log 可以輸出多個值
+  console.log("Answer:", answer.join(""), "gg"); // 開發時用，實際上線要移除
 });
 
 // 重置遊戲
 resetBtn.addEventListener("click", () => {
-  isGameStarted = false;
-  answer = [];
-  guessHistory = [];
-  resultBox.innerHTML = "";
-  guessInput.value = "";
-  guessInput.disabled = true;
-  guessBtn.disabled = true;
+  isGameStarted = false; // 將遊戲狀態設為未開始
+  answer = []; // 清空答案陣列
+  guessHistory = []; // 清空猜測歷史紀錄陣列
+  resultBox.innerHTML = ""; // 清空結果顯示區域的內容
+  guessInput.value = ""; // 清空輸入框的值
+  guessInput.disabled = true; // 禁用輸入框
+  guessBtn.disabled = true; // 禁用猜測按鈕
 });
 
 // 顯示答案
@@ -126,22 +128,24 @@ guessBtn.addEventListener("click", () => {
     return;
   }
 
-  const guess = guessInput.value;
+  const guess = guessInput.value; // 獲取輸入框的值
   if (!validateInput(guess)) {
-    return;
+    // 驗證輸入是否合法
+    return; // 如果不合法，中斷執行
   }
 
-  const result = calculateAB(guess);
-  addGuessToHistory(guess, result);
+  const result = calculateAB(guess); // 計算 A 和 B 的數量
+  addGuessToHistory(guess, result); // 將猜測結果添加到歷史記錄
 
   if (result.A === 4) {
-    showHint("恭喜你猜對了！");
-    isGameStarted = false;
-    guessInput.disabled = true;
-    guessBtn.disabled = true;
+    // 如果 A = 4，表示完全猜對
+    showHint("恭喜你猜對了！"); // 顯示祝賀訊息
+    isGameStarted = false; // 結束遊戲
+    guessInput.disabled = true; // 禁用輸入框
+    guessBtn.disabled = true; // 禁用猜測按鈕
   }
 
-  guessInput.value = "";
+  guessInput.value = ""; // 清空輸入框，準備下一次猜測
 });
 
 // 初始化：禁用輸入和猜測按鈕
