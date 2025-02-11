@@ -1,0 +1,90 @@
+/* 整體頁面背景採用深色系，文字顏色則以淺色為主 */
+body {
+  background-color: #121212; /* 深色背景 */
+  color: #f5f5f5; /* 亮色文字，提升閱讀性 */
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/* 若有其他區塊也使用 Roboto 字型 */
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+/* 日曆容器設定，搭配深色與適度留白，讓內容更易閱讀 */
+#calendar {
+  width: 93%;
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: #1e1e1e; /* 與背景略有區隔 */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* FullCalendar 事件樣式：採用較柔和的紫色調 */
+.fc-event {
+  cursor: pointer;
+  background-color: #6a1b9a; /* muted purple */
+  border: 1px solid #4a148c; /* 深紫邊框 */
+  color: #fff;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+/* FullCalendar 自定義按鈕：以紫色為主，但字體與間距保持舒適 */
+.fc-button {
+  background-color: #6a1b9a;
+  border: 2px solid #4a148c;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.fc-button:hover {
+  background-color: #4a148c;
+  border-color: #38006b;
+  transform: translate(-2px, -2px);
+}
+
+/* Modal 相關設定：背景採用深灰色，邊框及標題以紫色點綴 */
+.modal-content {
+  background-color: #1e1e1e;
+  border: 1px solid #6a1b9a;
+  color: #f5f5f5;
+}
+
+.modal-header,
+.modal-footer {
+  border: none;
+}
+
+.modal-title {
+  font-family: "Cinzel Decorative", cursive;
+  color: #e1bee7; /* 輕盈的紫色，既有特色又不刺眼 */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Modal 內所有按鈕統一樣式：以紫色作為主調，但不會過於壓抑 */
+.btn-primary,
+.btn-info,
+.btn-success,
+.btn-danger,
+.btn-secondary {
+  background-color: #6a1b9a;
+  border-color: #4a148c;
+  color: #fff;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-info:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-secondary:hover {
+  background-color: #4a148c;
+  border-color: #38006b;
+  transform: translate(-2px, -2px);
+}

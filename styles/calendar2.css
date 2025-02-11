@@ -1,0 +1,42 @@
+* {
+  font-family: "Comic Sans MS", cursive, sans-serif; /* 使用俏皮風格字型 */
+}
+
+/* 滑鼠指到Event時變成手指,也可以自己寫一個class處理 */
+.fc-event {
+  cursor: pointer;
+}
+
+#calendar {
+  width: 93%;
+  margin: auto;
+  margin-top: 1rem !important;
+}
+
+/* 針對 FullCalendar 的按鈕覆寫 Sketchy 主題的按鈕樣式 */
+.fc-button.fc-button-primary .btn {
+  /* 1. 字體與文字效果 */
+  font-family: "Comic Sans MS", cursive, sans-serif; /* 使用俏皮風格字型 */
+  font-size: 1.1rem; /* 稍大一點的字體，便於閱讀 */
+  color: #ffffff; /* 文字顏色：白色 */
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1); /* 輕微的文字陰影，增加立體感 */
+
+  /* 2. 背景與邊框設定 */
+  background-color: #0d6efd; /* 按鈕背景色，這裡採用藍色，可根據 Sketchy 主題調整 */
+  border: 2px solid #0d6efd; /* 與背景色一致的邊框，厚度2px */
+  border-radius: 0.3rem; /* 輕微圓角，保持手繪感 */
+
+  /* 3. 陰影與間距 */
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2); /* 右下偏移的陰影，營造手繪風的錯落感 */
+  padding: 0.5rem 1rem; /* 內邊距設定，讓按鈕內部有足夠空間 */
+
+  /* 4. 過渡效果 */
+  transition: all 0.2s ease; /* 略為平滑的過渡效果，使滑鼠移入時動作更柔和 */
+}
+
+.fc-button.fc-button-primary:hover {
+  background-color: #0b5ed7; /* 背景顏色變深，提示使用者可以點擊 */
+  border-color: #0b5ed7; /* 邊框顏色隨之變化 */
+  transform: translate(-2px, -2px); /* 輕微位移，模擬手繪按鈕被按下的感覺 */
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2); /* 陰影稍微加深，增強視覺層次 */
+}
