@@ -12,57 +12,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <!-- <link
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap"
       rel="stylesheet"
-      href="https://bootswatch.com/5/sketchy/bootstrap.css"
-    /> -->
-    <style>
-      * {
-        font-family: "Comic Sans MS", cursive, sans-serif; /* 使用俏皮風格字型 */
-      }
-
-      /* 滑鼠指到Event時變成手指,也可以自己寫一個class處理 */
-      .fc-event {
-        cursor: pointer;
-      }
-
-      #calendar {
-        width: 93%;
-        margin: auto;
-        margin-top: 1rem !important;
-      }
-
-      /* 針對 FullCalendar 的按鈕覆寫 Sketchy 主題的按鈕樣式 */
-      .fc-button.fc-button-primary .btn {
-        /* 1. 字體與文字效果 */
-        font-family: "Comic Sans MS", cursive, sans-serif; /* 使用俏皮風格字型 */
-        font-size: 1.1rem; /* 稍大一點的字體，便於閱讀 */
-        color: #ffffff; /* 文字顏色：白色 */
-        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1); /* 輕微的文字陰影，增加立體感 */
-
-        /* 2. 背景與邊框設定 */
-        background-color: #0d6efd; /* 按鈕背景色，這裡採用藍色，可根據 Sketchy 主題調整 */
-        border: 2px solid #0d6efd; /* 與背景色一致的邊框，厚度2px */
-        border-radius: 0.3rem; /* 輕微圓角，保持手繪感 */
-
-        /* 3. 陰影與間距 */
-        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2); /* 右下偏移的陰影，營造手繪風的錯落感 */
-        padding: 0.5rem 1rem; /* 內邊距設定，讓按鈕內部有足夠空間 */
-
-        /* 4. 過渡效果 */
-        transition: all 0.2s ease; /* 略為平滑的過渡效果，使滑鼠移入時動作更柔和 */
-      }
-
-      .fc-button.fc-button-primary:hover {
-        background-color: #0b5ed7; /* 背景顏色變深，提示使用者可以點擊 */
-        border-color: #0b5ed7; /* 邊框顏色隨之變化 */
-        transform: translate(
-          -2px,
-          -2px
-        ); /* 輕微位移，模擬手繪按鈕被按下的感覺 */
-        box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2); /* 陰影稍微加深，增強視覺層次 */
-      }
-    </style>
+    />
+    <link rel="stylesheet" href="./styles/calendar.css" />
   </head>
   <body>
     <!-- Calendar position -->
@@ -187,14 +141,6 @@
       </div>
     </div>
 
-    <script>
-      myStorage = window.localStorage;
-      console.log(myStorage);
-      localStorage.setItem("myCat", "Tom");
-      var cat = localStorage.getItem("myCat");
-      console.log(cat);
-    </script>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -216,6 +162,14 @@
       //   { start: "2025-02-03", title: "看電影" },
       //   { start: "2025-02-15", title: "去遊樂園" },
       // ];
+      const addBtn = document.querySelector("#add_btn");
+      const updateBtn = document.querySelector("#update_btn");
+      const deleteBtn = document.querySelector("#delete_btn");
+
+      const todoInput = document.querySelector("#create_input_to_do");
+      const dateInput = document.querySelector("#create_input_date");
+      const updateTodoInput = document.querySelector("#update_input_to_do");
+      const updateDateInput = document.querySelector("#update_input_date");
 
       const todoList = getTodoListFromStorage();
       console.log(todoList);
@@ -238,42 +192,12 @@
 
       function remove(id) {
         const index = todoList.findIndex((event) => event.id === Number(id));
-        console.log(index);
+        // console.log(index);
         if (index !== -1) {
           todoList.splice(index, 1);
           saveTodoListToStorage(todoList);
         }
       }
-      // const addBtn = document.querySelector("#add_btn");
-      // const todoInput = document.querySelector("#create_input_to_do");
-      // const dateInput = document.querySelector("#create_input_date");
-
-      // // const todoList = getTodoListFromStorage();
-
-      // addBtn.addEventListener("click", () => {
-      //   const todoContent = todoInput.value;
-      //   const todoDate = dateInput.value;
-      //   todoInput.value = "";
-
-      //   const todoItem = {
-      //     start: todoDate,
-      //     title: todoContent,
-      //   };
-
-      //   saveTodoItem(todoItem);
-
-      //   calendar.render();
-      // });
-
-      // function saveTodoItem(todoItem) {
-      //   todoList.push(todoItem);
-      //   saveTodoListToStorage(todoList);
-      // }
-
-      // function saveTodoListToStorage(TodoList) {
-      //   const json = JSON.stringify(TodoList);
-      //   localStorage.setItem(storageKey, json);
-      // }
       //---------------------------------------------------------------------
 
       document.addEventListener("DOMContentLoaded", function () {
@@ -338,10 +262,9 @@
           },
           // select: function (info) {
           //   console.log(info);
-
           // },
           eventClick: function (info) {
-            var eventObj = info.event;
+            const eventObj = info.event;
             console.log(eventObj);
             console.log(eventObj.startStr);
             console.log(eventObj.title);
@@ -349,7 +272,7 @@
 
             // 將事件ID存入全域變數，以供後續更新或刪除使用 /* NEW: 儲存目前事件的 id */
             currentEventId = eventObj.id;
-            console.log(typeof currentEventId);
+            console.log(currentEventId);
 
             document.getElementById("update_input_date").value =
               eventObj.startStr;
@@ -380,16 +303,6 @@
           },
         });
         calendar.render();
-
-        const addBtn = document.querySelector("#add_btn");
-        const updateBtn = document.querySelector("#update_btn");
-        const deleteBtn = document.querySelector("#delete_btn");
-
-        const todoInput = document.querySelector("#create_input_to_do");
-        const dateInput = document.querySelector("#create_input_date");
-        const updateTodoInput = document.querySelector("#update_input_to_do");
-        const updateDateInput = document.querySelector("#update_input_date");
-        // todoInput.value = ""; //要放在這裡，要不然存不進去LocalStorage
 
         addBtn.addEventListener("click", () => {
           console.log(new Date().getTime());
@@ -422,17 +335,6 @@
           console.log("你按了更新按鈕!!!!!!!!!!!!!!!!!!!!!!!");
           const updateTodoContent = updateTodoInput.value;
           const updateTodoDate = updateDateInput.value;
-          // console.log(updateTodoContent);
-          // console.log(updateTodoDate);
-
-          // const updateTodoItem = todoList[updateTodoDate];
-          // console.log(updateTodoItem);
-
-          // updateTodoItem.title = updateTodoContent;
-          // console.log(updateTodoItem.title);
-          console.log(event.id);
-          console.log("--------------------------");
-          console.log(currentEventId);
 
           for (const event of todoList) {
             if (event.id === Number(currentEventId)) {
