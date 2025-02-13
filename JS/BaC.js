@@ -50,7 +50,7 @@ function validateInput(input) {
 }
 
 // 計算 AB 數量
-可以用一個for迴圈解決;
+//可以用一個for迴圈解決;
 function calculateAB(guess) {
   const guessDigits = guess.split("").map(Number); // 將猜測轉為數字陣列
   let A = 0; // 位置和數字都對的計數
