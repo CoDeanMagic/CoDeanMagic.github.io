@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modal_HOR_TEST</title>
+    <title>橫式Modal - 左664px + 右368px</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -22,91 +22,83 @@
       referrerpolicy="no-referrer"
     />
     <style>
-      /* 統一控制所有 Modal 的大小與佈局 */
+      /* 按鈕樣式 */
+      .btn {
+        background-color: #a47764 !important;
+        border-color: #a47764 !important;
+        color: #fff !important;
+      }
+      .btn:hover {
+        background-color: #a47764 !important;
+        border-color: #a47764 !important;
+        opacity: 0.9;
+      }
+
+      /* 大尺寸彈窗設定 (原始左右佈局) */
       .modal-dialog.custom-size {
-        width: 1032px; /* 總寬度：左664 + 右368 */
-        max-width: 1032px; /* 防止Bootstrap預設的max-width限制 */
+        width: 1032px; /* 左664 + 右368 */
+        max-width: 1032px;
         height: calc(100vh - 160px);
-        margin: auto; /* 使其置中顯示 */
-        /* 如果想讓Modal可垂直置中，可考慮 margin: auto 以及 .modal-dialog-centered */
+        /* 可加入 margin: auto 置中 */
       }
       .modal-content.custom-content {
         width: 100%;
         height: 100%;
-        display: flex; /* 左右並排 */
-        overflow: hidden; /* 防止外溢 */
+        display: flex;
+        overflow: hidden;
         flex-direction: row;
       }
-
-      /* 左欄：固定寬664px，高100% */
+      /* 左側欄 */
       .modal-left {
         width: 664px;
         height: 100%;
-        position: relative;
-        overflow: hidden;
-        position: relative;
         background-color: #000;
-        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100%;
-        /* 若需要容器捲動，可改 overflow: auto;
-         但通常左欄放滿版圖片/地圖就用 cover 即可 */
+        overflow: hidden;
       }
-      /* 圖片或地圖滿版 */
       .modal-left img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
       }
-
-      /* 右欄：固定寬368px，高100%，上下三區塊：header / body / footer */
+      /* 右側欄 */
       .modal-right {
         width: 368px;
         height: 100%;
         display: flex;
-        flex-direction: column; /* 垂直排列：標題、可捲動區、底部按鈕 */
-        overflow: hidden; /* 由子元素控制捲動 */
+        flex-direction: column;
+        overflow: hidden;
       }
-
-      /* 右欄 - 頂部(標題) */
       .modal-right-header {
-        flex: 0 0 auto; /* 高度由內容撐開 */
+        flex: 0 0 auto;
         padding: 1rem;
         border-bottom: 1px solid #ddd;
         position: relative;
       }
-      /* 關閉按鈕置於右上角 */
       .modal-right-header .btn-close {
         position: absolute;
         top: 1rem;
         right: 1rem;
       }
-
-      /* 右欄 - 中間(可捲動) */
       .modal-right-body {
-        flex: 1 1 auto; /* 讓此區塊可彈性擴張 */
-        overflow-y: auto; /* 超出時顯示捲軸 */
+        flex: 1 1 auto;
+        overflow-y: auto;
         padding: 1rem;
       }
-
-      /* 右欄 - 底部(按鈕列) */
       .modal-right-footer {
-        flex: 0 0 auto; /* 高度由內容決定 */
+        flex: 0 0 auto;
         padding: 1rem;
         border-top: 1px solid #ddd;
         align-items: center;
       }
 
-      /* ----------------------------- */
-
-      /* 控制彈窗寬度 */
+      /* 其他元件樣式（保留原有內容） */
       .custom-modal-dialog {
         max-width: 900px;
       }
-      /* 左側圖片/地圖/拖曳區塊：常用樣式 */
       .modal-left-col {
         position: relative;
         background-color: #000;
@@ -121,7 +113,6 @@
         height: auto;
         object-fit: contain;
       }
-      /* 底部 Overlay：放置頭像、名稱、追蹤人數、按鈕等 */
       .left-bottom-overlay {
         position: absolute;
         bottom: 0;
@@ -136,24 +127,19 @@
         border-radius: 50%;
         object-fit: cover;
       }
-
-      /* 右側資訊區塊 */
       .modal-right-col {
         padding: 1rem;
         position: relative;
         min-height: 300px;
       }
-      /* 地點名稱或標題 */
       .place-name {
         font-size: 1.4rem;
         font-weight: bold;
       }
-      /* 小字顏色 */
       .text-muted-small {
         font-size: 0.9rem;
         color: #666;
       }
-      /* 評分與評論數 */
       .rating-score {
         font-size: 1.2rem;
         font-weight: bold;
@@ -167,7 +153,6 @@
         font-size: 0.9rem;
         color: #999;
       }
-      /* 通用行資訊(圖示 + 文字) */
       .info-line {
         margin-top: 0.5rem;
       }
@@ -175,7 +160,6 @@
         color: #6c757d;
         margin-right: 6px;
       }
-      /* 固定在右下角的新增行程按鈕 */
       .btn-add-schedule {
         background-color: #ff9800;
         color: #fff;
@@ -184,7 +168,6 @@
         padding: 0.6rem 1.2rem;
         font-size: 1rem;
         transition: transform 0.2s ease;
-        /* position: absolute; */
         bottom: 20px;
         right: 20px;
         z-index: 10;
@@ -192,16 +175,12 @@
       .btn-add-schedule:hover {
         transform: scale(1.05);
       }
-
-      /* 「新增自訂景點」：右側表單欄位 */
       .form-label {
         font-weight: 600;
       }
       .custom-spot-input {
         margin-bottom: 1rem;
       }
-
-      /* 「貢獻影音」：拖曳區與右側設定 */
       .fake-dropzone {
         background-color: #e0e0e0;
         display: flex;
@@ -220,10 +199,7 @@
         font-size: 0.9rem;
         color: #999;
       }
-
-      /* 「要加在哪裡？」示意插圖 */
       .fake-illustration {
-        /* background-color: #f0f0f0; */
         color: #777;
         display: flex;
         align-items: center;
@@ -236,8 +212,6 @@
       .itinerary-option {
         margin-top: 1rem;
       }
-
-      /* 「要放在哪裡？」地圖區 */
       .taiwan-map {
         background-color: #cce5ff;
         display: flex;
@@ -249,15 +223,12 @@
         padding: 1rem;
         position: relative;
       }
-
-      /* 膠囊形按鈕 */
       .btn-capsule {
         border-radius: 50px;
         padding: 0.75rem 1.5rem;
       }
-
-      /* 小卡樣式 */
       .spot-card {
+        background-color: white;
         border: 1px solid #ddd;
         border-radius: 5px;
         padding: 0.75rem;
@@ -278,46 +249,53 @@
         font-weight: bold;
         color: #999;
       }
-      /* 新景點名稱預設灰色 */
       .new-spot-name {
         color: #999;
       }
-      /* 選到後變成橘色 */
       .new-spot-name.selected {
         color: #ff9800;
       }
-
-      /* 返回按鈕（左上角） */
       .btn-back {
         position: absolute;
         top: 10px;
         left: 10px;
         background: none;
         border: none;
-        color: #fff; /* 或自訂顏色 */
+        color: #fff;
         font-size: 1.4rem;
         cursor: pointer;
-        z-index: 2; /* 確保在地圖上層 */
+        z-index: 2;
       }
       .btn-back:hover {
         opacity: 0.8;
       }
-
       .itinerary-title:hover {
         color: #8b8b8b;
       }
 
-      /* 覆寫所有按鈕背景、邊框與文字顏色 */
-      .btn {
-        background-color: #a47764 !important;
-        border-color: #a47764 !important;
-        color: #fff !important;
-      }
-      /* 如果有 hover 狀態，也一起設定 */
-      .btn:hover {
-        background-color: #a47764 !important;
-        border-color: #a47764 !important;
-        opacity: 0.9;
+      /* -----------------------------
+         響應式 RWD 調整
+         當螢幕寬度小於 992px（平板與手機）時，採用垂直堆疊 */
+      @media (max-width: 991.98px) {
+        .modal-dialog.custom-size {
+          width: 95%;
+          max-width: 95%;
+          height: auto;
+          margin: 1rem auto;
+        }
+        .modal-content.custom-content {
+          flex-direction: column;
+          height: auto;
+        }
+        .modal-left,
+        .modal-right {
+          width: 100%;
+          height: auto;
+        }
+        /* 可針對左側區塊圖片高度做限制 */
+        .modal-left {
+          max-height: 300px;
+        }
       }
     </style>
   </head>
@@ -374,7 +352,6 @@
                   alt="預覽圖片"
                 />
               </div>
-
               <div class="col-md-6 left-bottom-overlay">
                 <div class="d-flex align-items-center">
                   <img
@@ -415,7 +392,6 @@
           </div>
           <!-- 右欄：header / body / footer -->
           <div class="modal-right">
-            <!-- 標題 + 關閉按鈕 -->
             <div class="modal-right-header">
               <div class="mt-4 place-name">丹迪旅店 - 天母店</div>
               <button
@@ -425,7 +401,6 @@
                 aria-label="Close"
               ></button>
             </div>
-            <!-- 中間可捲動區 -->
             <div class="modal-right-body">
               <div class="d-flex align-items-center mt-3">
                 <div class="review-count me-2">Google 評價</div>
@@ -434,7 +409,6 @@
                 <div class="trip-count me-2">|</div>
                 <div class="trip-count">加入行程 127 次</div>
               </div>
-
               <div class="mt-3">
                 <div class="info-line">
                   <i class="bi bi-geo-alt"></i>
@@ -481,14 +455,12 @@
                   </a>
                 </div>
               </div>
-
               <div class="voice-translation mt-3">
                 <button class="btn btn-outline-secondary">
                   <i class="bi bi-mic-fill"></i> 語音翻譯
                 </button>
               </div>
             </div>
-            <!-- 底部按鈕 -->
             <div class="modal-right-footer">
               <button
                 class="btn btn-outline-secondary me-1"
@@ -518,10 +490,9 @@
               >
                 <i class="fa-solid fa-location-arrow"></i>
               </button>
-
               <button
                 type="button"
-                class="btn-add-schedule"
+                class="btn btn-add-schedule"
                 data-bs-dismiss="modal"
               >
                 新增行程
@@ -564,7 +535,6 @@
               ></button>
             </div>
             <div class="modal-right-body">
-              <!-- 景點名稱 -->
               <div class="custom-spot-input">
                 <input
                   type="text"
@@ -573,8 +543,6 @@
                   placeholder="輸入景點名稱"
                 />
               </div>
-
-              <!-- 地址(選填) + icon (同一行) -->
               <div class="custom-spot-input">
                 <div class="d-flex align-items-center gap-2">
                   <i class="fa-solid fa-location-dot"></i>
@@ -586,8 +554,6 @@
                   />
                 </div>
               </div>
-
-              <!-- 分類 + icon (同一行) -->
               <div class="custom-spot-input">
                 <div class="d-flex align-items-center gap-2">
                   <i class="fa-solid fa-list"></i>
@@ -599,8 +565,6 @@
                   </select>
                 </div>
               </div>
-
-              <!-- 相片(改為貢獻影音按鈕) -->
               <div class="custom-spot-input">
                 <label for="spotPhoto" class="form-label">相片</label>
                 <button
@@ -614,8 +578,6 @@
                   <br />貢獻影音
                 </button>
               </div>
-
-              <!-- 備忘錄 -->
               <div class="custom-spot-input">
                 <label for="spotDesc" class="form-label">備忘錄</label>
                 <textarea
@@ -627,7 +589,6 @@
               </div>
             </div>
             <div class="modal-right-footer">
-              <!-- 加到收藏(膠囊形狀) -->
               <button
                 type="button"
                 class="btn btn-primary w-100 btn-capsule"
@@ -652,8 +613,7 @@
                 <i class="bi bi-file-earmark-arrow-up fs-1"></i>
                 <p class="mt-3 mb-1">將影音檔案拖曳到這裡</p>
                 <p class="mb-3">
-                  或
-                  <a href="#" class="text-decoration-underline">選擇檔案</a>
+                  或 <a href="#" class="text-decoration-underline">選擇檔案</a>
                 </p>
                 <p class="upload-hint">
                   檔案長度限制：60秒<br />
@@ -672,8 +632,6 @@
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
-
-              <!-- 小標題 + 條款說明 -->
               <div class="fw-bold mb-1">
                 觀看權限
                 <small class="text-muted">
@@ -683,14 +641,11 @@
               </div>
             </div>
             <div class="modal-right-body">
-              <!-- 選項群組 (公開 / 私人) -->
               <div class="d-flex flex-column gap-3 mt-2">
-                <!-- 公開 -->
                 <label
                   class="border p-3 rounded-3 d-flex align-items-center"
                   style="cursor: pointer"
                 >
-                  <!-- Radio -->
                   <input
                     type="radio"
                     name="privacyOption"
@@ -698,33 +653,26 @@
                     id="privacyPublic"
                     checked
                   />
-                  <!-- 文字說明 -->
                   <div>
-                    <!-- 圖示 + 標題 -->
                     <div class="fw-bold">
                       <i class="fa-solid fa-earth-americas me-2"></i>
                       公開
                     </div>
-                    <!-- 換行說明 -->
                     <div class="text-muted" style="font-size: 0.85rem">
                       趣旅審核後，所有人都看得到
                     </div>
                   </div>
                 </label>
-
-                <!-- 私人 -->
                 <label
                   class="border p-3 rounded-3 d-flex align-items-center"
                   style="cursor: pointer"
                 >
-                  <!-- Radio -->
                   <input
                     type="radio"
                     name="privacyOption"
                     class="form-check-input me-2"
                     id="privacyPrivate"
                   />
-                  <!-- 文字說明 -->
                   <div>
                     <div class="fw-bold">
                       <i class="fa-solid fa-lock me-2"></i>
@@ -736,8 +684,6 @@
                   </div>
                 </label>
               </div>
-
-              <!-- 造訪連結 (選填) -->
               <div class="mt-3 mb-4">
                 <label for="visitLink" class="form-label fw-bold"
                   >造訪連結（選填）</label
@@ -754,7 +700,6 @@
               </div>
             </div>
             <div class="modal-right-footer">
-              <!-- 確認上傳按鈕 -->
               <button
                 type="button"
                 class="btn btn-primary w-100 btn-capsule"
@@ -794,11 +739,8 @@
               ></button>
             </div>
             <div class="modal-right-body">
-              <!-- 行程清單示範 -->
               <div class="itinerary-list">
-                <!-- 行程1：Dean的行程 (4天) -->
                 <div class="itinerary-item">
-                  <!-- Header 區: 行程名稱 + 小字 (日期/天數) + 下拉按鈕 -->
                   <div
                     class="itinerary-item-header"
                     data-bs-toggle="collapse"
@@ -814,9 +756,7 @@
                       <i class="bi bi-chevron-down"></i>
                     </div>
                   </div>
-                  <!-- 下拉天數清單 -->
                   <div class="collapse day-list mt-2" id="deanItinerary">
-                    <!-- 第1天 ~ 第4天 -->
                     <div class="day-item">
                       <span class="fw-bold">第1天</span>
                       <small class="text-muted ms-2"
@@ -843,9 +783,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- /itinerary-item -->
-
-                <!-- 行程2：到嘉義就是要吃！ - 複製 (4天) -->
                 <div class="itinerary-item">
                   <div
                     class="itinerary-item-header"
@@ -881,13 +818,9 @@
                     </div>
                   </div>
                 </div>
-                <!-- /itinerary-item -->
-
-                <!-- 更多行程可自行增加 -->
               </div>
             </div>
             <div class="modal-right-footer">
-              <!-- 建立新行程按鈕 -->
               <button type="button" class="btn btn-outline-primary w-100">
                 <i class="bi bi-plus-circle me-1"></i>建立新行程
               </button>
@@ -902,7 +835,6 @@
       <div class="modal-dialog custom-size">
         <div class="modal-content custom-content">
           <div class="modal-left">
-            <!-- 返回按鈕 (左上角) -->
             <button
               type="button"
               class="btn-back"
@@ -927,7 +859,7 @@
             </button>
           </div>
           <div class="modal-right">
-            <div class="modal-right-header">
+            <div class="modal-right-header border-0 pb-0">
               <h5 class="mt-4 mb-3">要加在哪？</h5>
               <button
                 type="button"
@@ -935,7 +867,6 @@
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
-              <!-- 分頁 (Day 1 / Day 2) -->
               <ul class="nav nav-tabs" id="dayTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button
@@ -967,23 +898,16 @@
                 </li>
               </ul>
             </div>
-            <div class="modal-right-body">
-              <!-- 分頁內容 -->
+            <div class="modal-right-body" style="background-color: #f3f4f8">
               <div class="tab-content" id="dayTabsContent">
-                <!-- 第1天 -->
                 <div
-                  class="tab-pane fade show active p-3"
+                  class="tab-pane fade show active"
                   id="day1Content"
                   role="tabpanel"
                   aria-labelledby="day1-tab"
                 >
-                  <!-- Checkbox 小卡列表 (示範三個) -->
                   <div class="container my-3">
-                    <h4>第1天</h4>
-
-                    <!-- 小卡 1 -->
                     <label class="spot-card" for="day1spot1">
-                      <!-- 注意：同一天數的 Radio 要用相同的 name，例如 name="day1Group" -->
                       <input
                         type="radio"
                         name="day1Group"
@@ -992,17 +916,13 @@
                         data-new-name-id="newName1"
                       />
                       <div>
-                        <!-- 第一行：本來的景點名稱 -->
                         <div>打狗英國領事館</div>
-                        <!-- 第二行：新景點名稱 (預設灰色 → 被選到就變橘) -->
                         <div id="newName1" class="new-spot-name">
                           華山1914文化創意產業園區
                         </div>
                         <div>老李大腸包小腸</div>
                       </div>
                     </label>
-
-                    <!-- 小卡 2 -->
                     <label class="spot-card" for="day1spot2">
                       <input
                         type="radio"
@@ -1019,8 +939,6 @@
                         <div>高雄港都嘎嗚王</div>
                       </div>
                     </label>
-
-                    <!-- 小卡 3 -->
                     <label class="spot-card" for="day1spot3">
                       <input
                         type="radio"
@@ -1038,21 +956,14 @@
                     </label>
                   </div>
                 </div>
-
-                <!-- 第2天 -->
                 <div
-                  class="tab-pane fade p-3"
+                  class="tab-pane fade"
                   id="day2Content"
                   role="tabpanel"
                   aria-labelledby="day2-tab"
                 >
-                  <!-- Checkbox 小卡列表 (示範兩個) -->
                   <div class="container my-3">
-                    <h4>第2天</h4>
-
-                    <!-- 小卡 1 -->
                     <label class="spot-card" for="day2spot1">
-                      <!-- 注意：同一天數的 Radio 要用相同的 name，例如 name="day1Group" -->
                       <input
                         type="radio"
                         name="day2Group"
@@ -1061,17 +972,13 @@
                         data-new-name-id="newName1"
                       />
                       <div>
-                        <!-- 第一行：本來的景點名稱 -->
                         <div>旗津海產街</div>
-                        <!-- 第二行：新景點名稱 (預設灰色 → 被選到就變橘) -->
                         <div id="newName1" class="new-spot-name">
                           華山1914文化創意產業園區
                         </div>
                         <div>六合夜市</div>
                       </div>
                     </label>
-
-                    <!-- 小卡 2 -->
                     <label class="spot-card" for="day2spot2">
                       <input
                         type="radio"
@@ -1139,17 +1046,13 @@
 
         // 監聽 day1Group 的所有 Radio
         const day1Radios = document.querySelectorAll('input[name="day1Group"]');
-
         day1Radios.forEach(function (radio) {
           radio.addEventListener("change", function () {
-            // 先將所有 .new-spot-name 移除 .selected
             day1Radios.forEach(function (r) {
               const targetId = r.getAttribute("data-new-name-id");
               const targetEl = document.getElementById(targetId);
               if (targetEl) targetEl.classList.remove("selected");
             });
-
-            // 再將目前選到的 Radio 對應 .new-spot-name 加上 .selected
             if (this.checked) {
               const newNameId = this.getAttribute("data-new-name-id");
               const newNameEl = document.getElementById(newNameId);
@@ -1160,28 +1063,7 @@
           });
         });
 
-        // // 監聽 day2Group 的所有 Radio
-        // const day2Radios = document.querySelectorAll('input[name="day2Group"]');
-
-        // day2Radios.forEach(function(radio) { // <-- 修正這裡
-        //   radio.addEventListener('change', function() {
-        //     // 先將所有 .new-spot-name 移除 .selected
-        //     day2Radios.forEach(function(r) {
-        //       const targetId = r.getAttribute('data-new-name-id');
-        //       const targetEl = document.getElementById(targetId);
-        //       if(targetEl) targetEl.classList.remove('selected');
-        //     });
-
-        //     // 再將目前選到的 Radio 對應 .new-spot-name 加上 .selected
-        //     if(this.checked) {
-        //       const newNameId = this.getAttribute('data-new-name-id');
-        //       const newNameEl = document.getElementById(newNameId);
-        //       if(newNameEl) {
-        //         newNameEl.classList.add('selected');
-        //       }
-        //     }
-        //   });
-        // });
+        // 可參考需要時解開 day2Group 的監聽邏輯
       });
     </script>
   </body>
