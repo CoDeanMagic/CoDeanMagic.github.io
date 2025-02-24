@@ -300,34 +300,52 @@
 
       /* (4) 新增清單Modal */
       /* 直接沿用原先表單風格 */
+
+      /* ===== RWD 調整 ===== */
+      /* 手機裝置 (小於 576px) */
+      @media (max-width: 575.98px) {
+        .custom-modal-dialog {
+          width: 95%;
+          max-width: 95%;
+          margin: auto;
+        }
+      }
+      /* 平板裝置 (576px ~ 991.98px) */
+      @media (min-width: 576px) and (max-width: 991.98px) {
+        .custom-modal-dialog {
+          width: 90%;
+          max-width: 480px;
+          margin: auto;
+        }
+      }
     </style>
   </head>
   <body>
     <!-- 觸發四個Modal按鈕 (示範) -->
     <div class="container my-5 text-center">
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#createTripModal"
       >
         建立新行程
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#shareInviteModal"
       >
         分享行程 / 邀請共編
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#chooseListModal"
       >
         選擇要加入的清單
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#createListModal"
       >

@@ -150,6 +150,18 @@
         object-fit: cover;
       }
 
+      .bottom-btn-box {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .left-box {
+        display: flex;
+        /* justify-content: space-between; */
+        align-items: center;
+      }
+
       /* 右側資訊區塊 */
       .modal-right-col {
         padding: 1rem;
@@ -320,41 +332,62 @@
       .itinerary-title:hover {
         color: #8b8b8b;
       }
+
+      /* -----------------------------
+         響應式 RWD 調整
+         當螢幕寬度小於 992px（平板與手機）時，採用垂直堆疊 */
+      @media (max-width: 991.98px) {
+        .modal-dialog.custom-size {
+          width: 95%;
+          max-width: 95%;
+          height: auto;
+          margin: 1rem auto;
+        }
+        .modal-content.custom-content {
+          flex-direction: column;
+          height: auto;
+        }
+        .modal-left,
+        .modal-right {
+          width: 100%;
+          height: auto;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container my-5 text-center">
       <!-- 觸發五個Modal的按鈕 -->
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal1"
       >
         Modal1 - 景點資訊
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal2"
       >
         Modal2 - 自訂景點
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal3"
       >
         Modal3 - 貢獻影音
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal4"
       >
         Modal4 - 要加在哪個行程？
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal5"
       >
@@ -490,44 +523,49 @@
               </div>
             </div>
             <!-- 底部按鈕 -->
-            <div class="modal-right-footer">
-              <button
-                class="btn btn-outline-secondary me-1"
-                data-bs-toggle="tooltip"
-                title="貢獻影音"
-              >
-                <i class="bi bi-camera-fill"></i>
-              </button>
-              <button
-                class="btn btn-outline-secondary me-1"
-                data-bs-toggle="tooltip"
-                title="分享"
-              >
-                <i class="bi bi-share-fill"></i>
-              </button>
-              <button
-                class="btn btn-outline-secondary me-1"
-                data-bs-toggle="tooltip"
-                title="加到收藏"
-              >
-                <i class="bi bi-heart"></i>
-              </button>
-              <button
-                class="btn btn-outline-secondary me-3"
-                data-bs-toggle="tooltip"
-                title="導航"
-              >
-                <i class="fa-solid fa-location-arrow"></i>
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-add-schedule"
-                data-bs-dismiss="modal"
-              >
-                新增行程
-                <i class="bi bi-plus-circle-fill me-1"></i>
-              </button>
+            <div class="modal-right-footer m-0">
+              <div class="bottom-btn-box p-0 m-0">
+                <div class="left-box">
+                  <button
+                    class="btn btn-outline-secondary me-1"
+                    data-bs-toggle="tooltip"
+                    title="貢獻影音"
+                  >
+                    <i class="bi bi-camera-fill"></i>
+                  </button>
+                  <button
+                    class="btn btn-outline-secondary me-1"
+                    data-bs-toggle="tooltip"
+                    title="分享"
+                  >
+                    <i class="bi bi-share-fill"></i>
+                  </button>
+                  <button
+                    class="btn btn-outline-secondary me-1"
+                    data-bs-toggle="tooltip"
+                    title="加到收藏"
+                  >
+                    <i class="bi bi-heart"></i>
+                  </button>
+                  <button
+                    class="btn btn-outline-secondary me-3"
+                    data-bs-toggle="tooltip"
+                    title="導航"
+                  >
+                    <i class="fa-solid fa-location-arrow"></i>
+                  </button>
+                </div>
+                <div class="right-box">
+                  <button
+                    type="button"
+                    class="btn btn-add-schedule"
+                    data-bs-dismiss="modal"
+                  >
+                    新增行程
+                    <i class="bi bi-plus-circle-fill me-1"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -541,7 +579,7 @@
           <!-- 左欄：地圖滿版 -->
           <div class="modal-left">
             <div class="fake-dropzone">這裡可放地圖（示意）</div>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-danger"
               style="
@@ -552,7 +590,7 @@
               "
             >
               <i class="bi bi-plus-circle fs-3"></i>
-            </button>
+            </button> -->
           </div>
           <div class="modal-right">
             <div class="modal-right-header">
@@ -914,7 +952,7 @@
               <i class="bi bi-chevron-left"></i>
             </button>
             <div class="fake-dropzone">這裡可放地圖（示意）</div>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-danger"
               style="
@@ -925,7 +963,7 @@
               "
             >
               <i class="bi bi-plus-circle fs-3"></i>
-            </button>
+            </button> -->
           </div>
           <div class="modal-right">
             <div class="modal-right-header border-0 pb-0">

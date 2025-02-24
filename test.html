@@ -293,9 +293,10 @@
           height: auto;
         }
         /* 可針對左側區塊圖片高度做限制 */
-        .modal-left {
+        /* 這段沒有avatar-bar就可以正常顯示了 */
+        /* .modal-left {
           max-height: 300px;
-        }
+        } */
       }
     </style>
   </head>
@@ -303,35 +304,35 @@
     <div class="container my-5 text-center">
       <!-- 觸發五個Modal的按鈕 -->
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal1"
       >
         Modal1 - 景點資訊
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal2"
       >
         Modal2 - 自訂景點
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal3"
       >
         Modal3 - 貢獻影音
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal4"
       >
         Modal4 - 要加在哪個行程？
       </button>
       <button
-        class="btn btn-primary me-2"
+        class="btn btn-primary mx-2 my-2"
         data-bs-toggle="modal"
         data-bs-target="#modal5"
       >
@@ -511,7 +512,7 @@
           <!-- 左欄：地圖滿版 -->
           <div class="modal-left">
             <div class="fake-dropzone">這裡可放地圖（示意）</div>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-danger"
               style="
@@ -522,7 +523,7 @@
               "
             >
               <i class="bi bi-plus-circle fs-3"></i>
-            </button>
+            </button> -->
           </div>
           <div class="modal-right">
             <div class="modal-right-header">
@@ -845,7 +846,7 @@
               <i class="bi bi-chevron-left"></i>
             </button>
             <div class="fake-dropzone">這裡可放地圖（示意）</div>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-danger"
               style="
@@ -856,7 +857,7 @@
               "
             >
               <i class="bi bi-plus-circle fs-3"></i>
-            </button>
+            </button> -->
           </div>
           <div class="modal-right">
             <div class="modal-right-header border-0 pb-0">
